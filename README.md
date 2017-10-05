@@ -33,31 +33,31 @@ Bamazon's manager view allows users to view and edit the inventory of the store.
 * Add to inventory
 * Add a new product
 
-![manager](/Screenshots/ScreenShot_manager)
+![manager](/Screenshots/ScreenShot_manager.png)
 
 #### View Products for Sale
 
 The manager can see all items up for sale.
 
-![manager view](/Screenshots/ScreenShot_viewMan)
+![manager view](/Screenshots/ScreenShot_viewMan.png)
 
 #### View Low Inventory
 
 The manager can see any items low on stick with under 5 units left.
 
-![Low Inventory](/Screenshots/ScreenShot_lowInventory)
+![Low Inventory](/Screenshots/ScreenShot_lowInventory.png)
 
 #### Add to Inventory
 
-The manager can add more units to an items inventory.
+The manager can add more units to an items inventory. Here I have added 10 more units of Tonka Trucks to the store:
 
-![Add Inventory](/Screenshots/ScreenShot_update)
+![Add Inventory](/Screenshots/ScreenShot_update.png)
 
 #### Add a new product
 
-The manager can also add a completely new product to Bamazon.
+The manager can also add a completely new product to Bamazon. Here Bamazon is now selling Cereal:
 
-![New Product](/Screenshots/ScreenShot_addProduct)
+![New Product](/Screenshots/ScreenShot_addProduct.png)
 
 ## Supervisor View
 
