@@ -1,5 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+var Table = require("cli-table");
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -21,12 +22,20 @@ function displayProducts() {
     connection.query("SELECT * FROM products", function(err, res) {
         if (err) throw err;
 
-        console.log("\nBamazon's Current Inventory!\n\nItem ID | Product | Department | Price | Quantity\n");
+      console.log("\nWelcome to Bamazon!\n");
 
-        for (var i = 0; i < res.length; i++) {
+      var table = new Table({
+        head: ["Item Id #", "Product", "Price"]
+      });
 
-            console.log(res[i].unique_id + " | " + res[i].product_name + " | " + res[i].department_name + " | " + "$" + res[i].price + " | " + res[i].stock_quantity + "\n");
-        }
+      for (var i = 0; i < res.length; i++) {
+
+        table.push(
+          [res[i].unique_id, res[i].product_name, "$" + res[i].price]
+        );
+      }   
+       
+        console.log(table.toString());
 
         chooseProduct();
     });
@@ -37,7 +46,7 @@ function chooseProduct() {
     inquirer.prompt([{
         type: "input",
         name: "id",
-        message: "Please enter the Item ID which you would like to purchase",
+        message: "Please enter the ID # of the item which you would like to purchase",
     }, {
         type: "input",
         name: "amount",
@@ -54,9 +63,9 @@ function chooseProduct() {
 
             var item = data[0];
 
-            console.log("\nYou have selected " + chosenAmount + " units of " + item.product_name);
-
             if (chosenAmount <= item.stock_quantity) {
+
+                console.log("\nYou have selected " + chosenAmount + " units of " + item.product_name);
 
                 console.log("\nCongratulations! Your order has been placed! ");
 
@@ -88,7 +97,7 @@ function stayOrGo(){
     .prompt({
       name: "stayOrGo",
       type: "list",
-      message: "Would you like make another order or exit?",
+      message: "Would you like to make another order or exit?",
       choices: ["ORDER", "EXIT"]
     })
     .then(function(answer) {

@@ -12,13 +12,18 @@ CREATE TABLE products(
 );
 
 INSERT INTO products (unique_id, product_name, department_name, price, stock_quantity)
-VALUES  (1001, "Shampoo", "Cosmetics", 3.75, 500),
-		(1002, "Conditioner", "Cosmetics", 3.25, 627),
-		(1003, "Trash Bags", "Grocery", 5.99, 300),
-		(1004, "Paper Towels", "Grocery", 4.25, 400),
-		(1005, "Apples", "Produce", 0.50, 800),
-		(1006, "Bananas", "Produce", 0.35, 150),
-		(1007, "Orange Juice", "Grocery", 3.50, 45),
-		(1008, "Milk", "Grocery", 3.99, 200),
-		(1009, "Tonka Truck", "Children's Toys", 14.75, 20);
+VALUES  (1001, "Shampoo", "Cosmetics", 3.75, 30),
+		(1002, "Conditioner", "Cosmetics", 3.25, 4),
+		(1003, "Nail Polish", "Cosmetics", 3.00, 25),
+		(1004, "Trash Bags", "Grocery", 5.99, 60),
+		(1005, "Paper Towels", "Grocery", 4.25, 50),
+		(1006, "Apples", "Grocery", 0.50, 50),
+		(1007, "Bananas", "Grocery", 0.35, 40),
+		(1008, "Orange Juice", "Grocery", 3.50, 45),
+		(1009, "Milk", "Grocery", 3.99, 30),
+		(1010, "Tonka Truck", "Children's Toys", 34.75, 2),
+        (1011, "Barbie", "Children's Toys", 15.00, 20),
+        (1012, "Basketball", "Children's Toys", 10.25, 30),
+        (1013, "Men's T-Shirt", "Clothing", 8.99, 15),
+        (1014, "Men's Jeans", "Clothing", 24.75, 20);
 		

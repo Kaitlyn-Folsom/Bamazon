@@ -1,5 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+var Table = require("cli-table");
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -13,6 +14,8 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
     if (err) throw err;
+
+    console.log("\nHello Manager!\n");
 
     begin();
 });
@@ -42,44 +45,59 @@ function viewInventory() {
     connection.query("SELECT * FROM products", function(err, res) {
         if (err) throw err;
 
-        console.log("\nBamazon's Current Inventory!\n\nItem ID | Product | Department | Price | Quantity\n");
+        var table = new Table({
+            head: ["Item Id#", "Product Name", "Department Name", "Price", "Stock Quantity"]
+        });
 
         for (var i = 0; i < res.length; i++) {
 
-            console.log(res[i].unique_id + " | " + res[i].product_name + " | " + res[i].department_name + " | " + "$" + res[i].price + " | " + res[i].stock_quantity + "\n");
+            table.push(
+                [res[i].unique_id, res[i].product_name, res[i].department_name, "$" + res[i].price, res[i].stock_quantity + " units"]
+            );
         }
+
+        console.log(table.toString());
 
         begin();
     });
 }
 
 function viewLowInventory() {
-    // If a manager selects `View Low Inventory`, then it should list all items with an inventory count lower than five.
 
-    connection.query("SELECT * FROM products WHERE stock_quantity <= 5", function(err, res) {
+    connection.query("SELECT * FROM products WHERE stock_quantity<=5", function(err, res) {
         if (err) throw err;
 
-        console.log("\nThese products are low on inventory\n");
-
-        console.log("Item ID | Product | Department | Quantity\n");
-
+        // if (res) {
         for (var i = 0; i < res.length; i++) {
-            if (res[i].stock_quantity <= 5) {
-                console.log(res[i].unique_id + " | " + res[i].product_name + " | " + res[i].department_name + " | " + res[i].stock_quantity + "\n");
-            } else if (res[i].stock_quantity > 5) {
-                console.log("No items are low on inventory!")
-            }
-        }
+            var items = res[i];
 
 
+            console.log("\nThese products are low on inventory\n");
+
+            var table = new Table({
+                head: ["Item Id#", "Product Name", "Department Name", "Price", "Stock Quantity"]
+            });
+
+
+            table.push([items.unique_id, items.product_name, items.department_name, "$" + items.price, items.stock_quantity + " units"]);
+
+            console.log(table.toString());
+        } //End for loop
+
+        if (res = undefined) {
+
+            console.log("\nNo items are low on inventory!\n");
+
+        } //End if/else statement
 
         begin();
-    });
+
+    }); //End connection.query
+
 } // end view LowInventory function
 
 function updateInventory() {
 
-    // If a manager selects `Add to Inventory`, your app should display a prompt that will let the manager "add more" of any item currently in the store.
     inquirer.prompt([{
         name: "id",
         message: "Please enter the ID of the product you would like to update.",
@@ -90,18 +108,55 @@ function updateInventory() {
         type: "input"
     }]).then(function(input) {
         connection.query("UPDATE products SET stock_quantity=stock_quantity+" + input.amount + " WHERE unique_id=" + input.id, function(err, res) {
-            console.log(input.affectedRows + " products updated!\n");
+            console.log("\n" + res.affectedRows + " product updated!\n");
             console.log("You now have " + input.stock_quantity + " units of " + input.product_name + ".");
-        });
 
-        begin();
-    });
+            begin();
+        }); //End connection
+
+
+    });//End prompt
 
 } //End updateInventory function
 
 function addProduct() {
 
-    // If a manager selects `Add New Product`, it should allow the manager to add a completely new product to the store.
+    inquirer.prompt([{
+            name: "id",
+            message: "Create a product Id",
+            type: "input",
+        },{
+            name: "name",
+            message: "What is the name of the item you would like to add?",
+            type: "input"
+        },{
+            name: "department",
+            message: "Choose a department to add your product to",
+            type: "input"
+        },{
+            name: "price",
+            message: "What is the price for the item?",
+            type: "input"
+        },{
+            name: "quantity",
+            message: "How much of this item is in stock?",
+            type: "input"
+        }]).then(function(input) {
+            connection.query("INSERT INTO products SET ?",
+            {
+              unique_id: input.id,
+              product_name: input.name,
+              department_name: input.department,
+              price: input.price,
+              stock_quantity: input.quantity
+            },
+            function(err, res) {
+              console.log("\n" + input.name + " has been added to Bamazon!\n");
+
+              begin();
+            }
+        );
+    });//End prompt
 
 } //End addProduct function
 
