@@ -35,30 +35,52 @@ Bamazon's manager view allows users to view and edit the inventory of the store.
 
 ![manager](/Screenshots/ScreenShot_manager.png)
 
-#### View Products for Sale
+### View Products for Sale
 
 The manager can see all items up for sale.
 
 ![manager view](/Screenshots/ScreenShot_viewMan.png)
 
-#### View Low Inventory
+### View Low Inventory
 
 The manager can see any items low on stick with under 5 units left.
 
 ![Low Inventory](/Screenshots/ScreenShot_lowInventory.png)
 
-#### Add to Inventory
+### Add to Inventory
 
 The manager can add more units to an items inventory. Here I have added 10 more units of Tonka Trucks to the store:
 
 ![Add Inventory](/Screenshots/ScreenShot_update.png)
 
-#### Add a new product
+### Add a new product
 
 The manager can also add a completely new product to Bamazon. Here Bamazon is now selling Cereal:
 
 ![New Product](/Screenshots/ScreenShot_addProduct.png)
 
-## Supervisor View
+## Supervisor View (UNDER CONSTRUCTION...)
 
-Coming up....
+Not fully Complete...
+
+The Bamazon supervisor has the ability to:
+
+   * View Product Sales by Department
+   
+   * Create New Department
+
+![supervisor view](/Screenshots/ScreenShot_supervisor.png)
+
+### View Product Sales (UNDER CONSTRUCTION...)
+
+When a supervisor selects view product sales, Bamazon will display a summarized table.
+
+![product sales](/Screenshots/ScreenShot_sales.png)
+
+### Create new Department
+
+When a supervisor selects create new department, they will be asked to fill enter a new department id and name. Here you can see a supervisor added a new pet supplies department:
+
+![new department](/Screenshots/ScreenShot_newDep.png)
+
+

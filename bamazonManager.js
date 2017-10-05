@@ -49,13 +49,6 @@ function viewInventory() {
             head: ["Item Id#", "Product Name", "Department Name", "Price", "Stock Quantity"]
         });
 
-        for (var i = 0; i < res.length; i++) {
-
-            table.push(
-                [res[i].unique_id, res[i].product_name, res[i].department_name, "$" + res[i].price, res[i].stock_quantity + " units"]
-            );
-        }
-
         console.log(table.toString());
 
         begin();

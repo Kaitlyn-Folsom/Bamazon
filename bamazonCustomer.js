@@ -22,25 +22,31 @@ function displayProducts() {
     connection.query("SELECT * FROM products", function(err, res) {
         if (err) throw err;
 
-      console.log("\nWelcome to Bamazon!\n");
+        console.log("\nWelcome to Bamazon!\n");
 
-      var table = new Table({
-        head: ["Item Id #", "Product", "Price"]
-      });
+        var table = new Table({
+            head: ["Item Id #", "Product", "Price"]
+        });
 
-      for (var i = 0; i < res.length; i++) {
+        for (var i = 0; i < res.length; i++) {
 
-        table.push(
-          [res[i].unique_id, res[i].product_name, "$" + res[i].price]
-        );
-      }   
-       
+            table.push(
+                [res[i].unique_id, res[i].product_name, "$" + res[i].price]
+            );
+        }
+
         console.log(table.toString());
 
         chooseProduct();
     });
 
 } //End displayProducts function
+
+function totalCustSales() {
+
+
+
+}
 
 function chooseProduct() {
     inquirer.prompt([{
@@ -71,47 +77,54 @@ function chooseProduct() {
 
                 var newStock_quantity = item.stock_quantity - chosenAmount;
 
+                var customerTotal = item.price * chosenAmount;
+
                 connection.query("UPDATE products SET stock_quantity= " + newStock_quantity + " WHERE unique_id = " + chosenId, function(err, data) {
                     if (err) throw err;
-
-                    var customerTotal = item.price * chosenAmount;
 
                     console.log("\nYour total is $" + customerTotal);
                     console.log("\nThank you for shopping with us!\n");
 
                     stayOrGo();
                 })
-            }else if(chosenAmount > item.stock_quantity){
-              console.log("\nWe're sorry! We do not have enought of that item currently in our inventory. \nPlease begin another order!");
 
-              console.log("\n--------------------------");
+                connection.query("UPDATE products SET product_sales= ? WHERE department_name = ?;", [customerTotal, item.department_name], function(err, resultOne) {
+                    if (err) console.log('error: ' + err);
+                    return resultOne;
 
-              stayOrGo();
+                    console.log(customerTotal);
+
+                    stayOrGo();
+                });
+            } else if (chosenAmount > item.stock_quantity) {
+                console.log("\nWe're sorry! We do not have enought of that item currently in our inventory. \nPlease begin another order!");
+
+                console.log("\n--------------------------");
+
+                stayOrGo();
             }
         });
     }); //End prompt
 } //End chooseProduct function
 
-function stayOrGo(){
-  inquirer
-    .prompt({
-      name: "stayOrGo",
-      type: "list",
-      message: "Would you like to make another order or exit?",
-      choices: ["ORDER", "EXIT"]
-    })
-    .then(function(answer) {
-      // based on their answer, either call the bid or the post functions
-      if (answer.stayOrGo === "ORDER") {
-        displayProducts();
-      }
-      else {
-        exitBamazon();
-      }
-    });
-}//End staOrGo function
+function stayOrGo() {
+    inquirer
+        .prompt({
+            name: "stayOrGo",
+            type: "list",
+            message: "Would you like to make another order or exit?",
+            choices: ["ORDER", "EXIT"]
+        })
+        .then(function(answer) {
+            // based on their answer, either call the bid or the post functions
+            if (answer.stayOrGo === "ORDER") {
+                displayProducts();
+            } else {
+                exitBamazon();
+            }
+        });
+} //End staOrGo function
 
-function exitBamazon(){
-  connection.end();
-}//End exitBamazon function
-
+function exitBamazon() {
+    connection.end();
+} //End exitBamazon function
