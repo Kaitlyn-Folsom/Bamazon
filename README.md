@@ -61,8 +61,6 @@ The manager can also add a completely new product to Bamazon. Here Bamazon is no
 
 ## Supervisor View (UNDER CONSTRUCTION...)
 
-Not fully Complete...
-
 The Bamazon supervisor has the ability to:
 
    * View Product Sales by Department
@@ -74,6 +72,8 @@ The Bamazon supervisor has the ability to:
 ### View Product Sales (UNDER CONSTRUCTION...)
 
 When a supervisor selects view product sales, Bamazon will display a summarized table.
+
+Currently Product Sales and Total Profit are undefined. Will fix soon.
 
 ![product sales](/Screenshots/ScreenShot_sales.png)
 
