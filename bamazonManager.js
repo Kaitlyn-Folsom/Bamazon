@@ -67,28 +67,19 @@ function viewLowInventory() {
     connection.query("SELECT * FROM products WHERE stock_quantity<=5", function(err, res) {
         if (err) throw err;
 
-        // if (res) {
+            console.log("\nThese products are low on inventory\n");
+
         for (var i = 0; i < res.length; i++) {
             var items = res[i];
-
-
-            console.log("\nThese products are low on inventory\n");
 
             var table = new Table({
                 head: ["Item Id#", "Product Name", "Department Name", "Price", "Stock Quantity"]
             });
 
-
             table.push([items.unique_id, items.product_name, items.department_name, "$" + items.price, items.stock_quantity + " units"]);
 
             console.log(table.toString());
         } //End for loop
-
-        if (res = undefined) {
-
-            console.log("\nNo items are low on inventory!\n");
-
-        } //End if/else statement
 
         begin();
 
@@ -109,9 +100,8 @@ function updateInventory() {
     }]).then(function(input) {
         connection.query("UPDATE products SET stock_quantity=stock_quantity+" + input.amount + " WHERE unique_id=" + input.id, function(err, res) {
             console.log("\n" + res.affectedRows + " product updated!\n");
-            console.log("You now have " + input.stock_quantity + " units of " + input.product_name + ".");
 
-            begin();
+            viewInventory();
         }); //End connection
 
 
