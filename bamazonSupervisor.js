@@ -48,7 +48,7 @@ function viewSales() {
         for (var i = 0; i < res.length; i++) {
 
             table.push(
-                [res[i].department_id, res[i].department_name, res[i].over_head_costs, "$" + res[i].product_sales, "$" + res[i].totalProfit]
+                [res[i].department_id, res[i].department_name, "$" res[i].over_head_costs, "$" + res[i].product_sales, "$" + res[i].totalProfit]
             );
         }
 
