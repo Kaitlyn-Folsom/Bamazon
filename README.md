@@ -10,13 +10,13 @@ Bamazon's customer view allows users to view the current items available for pur
 
 ![items](/Screenshots/ScreenShot_view.png)
 
+* Note: I installed an npm package called [CLI-Table](https://www.npmjs.com/package/cli-table) to create the table in Bash.
+
 ### When item is in stock
 
 The user will be prompted to enter the item id# and how many items they wish to purchase. If the item is in stock, the order will be completed and the user will see the total amount of their purchase.
 
 ![items](/Screenshots/ScreenShot_inStock.png)
-
-* Note: I installed an npm package called [CLI-Table](https://www.npmjs.com/package/cli-table) to create the table in Bash.
 
 ### When item is out of stock
 
